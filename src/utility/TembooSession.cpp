@@ -41,6 +41,7 @@ static const char HEADER_AUTH[]            PROGMEM = "x-temboo-authentication: "
 static const char HEADER_CONTENT_TYPE[]    PROGMEM = "Content-Type: text/plain";
 static const char TEMBOO_DOMAIN[]          PROGMEM = ".temboolive.com";
 static const char SDK_ID[]                 PROGMEM = "?source_id=arduinoSDK1";
+static const char HTTP[]                   PROGMEM = "http://";
 
 unsigned long TembooSession::s_timeOffset = 0;
 
@@ -94,40 +95,35 @@ int TembooSession::executeChoreo(
     // reserve space for the "host" string sufficient to hold either the 
     // (dotted-quad) IP address + port, or the default <account>.temboolive.com
     // host string.
-    int hostLen = (m_addr == INADDR_NONE ? (strlen_P(TEMBOO_DOMAIN) + strlen(accountName) + 1):21);
+    int hostLen = strlen_P(TEMBOO_DOMAIN) + strlen(accountName) + 1;
     char host[hostLen];
+    
+    // Construct the "host" string from the account name and the temboo domain name.
 
-    // If no explicit IP address was specified (the normal case), construct
-    // the "host" string from the account name and the temboo domain name.
+    strcpy(host, accountName);
+    strcat_P(host, TEMBOO_DOMAIN);
+    
+    bool useProxy = false;
+    
     if (m_addr == INADDR_NONE) {
-        strcpy(host, accountName);
-        strcat_P(host, TEMBOO_DOMAIN);
         TEMBOO_TRACELN(host);
         connected = m_client.connect(host, m_port);
     } else {
-
-        // If an IP address was explicitly specified (presumably for testing purposes),
-        // convert it to a dotted-quad text string.
-        host[0] = '\0';
-        for(int i = 0; i < 4; i++) {
-            uint16toa(m_addr[i], &host[strlen(host)]);
-            strcat(host, ".");
-        }
-
-        // replace the last '.' with ':'
-        host[strlen(host)-1] = ':';
-        
-        // append the port number
-        uint16toa(m_port, &host[strlen(host)]);
         
         TEMBOO_TRACELN(host);
         connected = m_client.connect(m_addr, m_port);
+        
+        useProxy = true;
     }
 
     if (connected) {
 
         TEMBOO_TRACELN("OK. req:");
         qsendProgmem(POST);
+        if(useProxy) {
+            qsendProgmem(HTTP);
+            qsend(host);
+        }
         qsendProgmem(BASE_CHOREO_URI);
         qsend(path);
         qsendProgmem(SDK_ID);

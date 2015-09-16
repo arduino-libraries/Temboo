@@ -1,9 +1,9 @@
 /*
 ###############################################################################
 #
-# Temboo Arduino library
+# Temboo MQTT edge device library
 #
-# Copyright 2015, Temboo Inc.
+# Copyright (C) 2015, Temboo Inc.
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,71 +20,107 @@
 ###############################################################################
 */
 
-#ifndef TEMBOO_H_
-#define TEMBOO_H_
+#ifndef TEMBOOMQTT_H_
+#define TEMBOOMQTT_H_
 
 #include <Arduino.h>
 
-#if defined (ARDUINO_AVR_YUN) || defined (ARDUINO_AVR_TRE)
-///////////////////////////////////////////////////////
-//  BEGIN ARDUINO YUN AND TRE SUPPORT
-///////////////////////////////////////////////////////
-
-#include <Process.h>
-
-class TembooChoreo : public Process {
-
-    public:
-    void begin() {Process::begin("temboo");}
-    void setAccountName(const String& accountName) { addParameter("-a" + accountName);}
-    void setAppKeyName(const String& appKeyName) { addParameter("-u" + appKeyName);}
-    void setAppKey(const String& appKey) { addParameter("-p" + appKey);}
-    void setChoreo(const String& choreo) { addParameter("-c" + choreo);}
-    void setCredential(const String& credentialName) { addParameter("-e" + credentialName);}
-    void setSavedInputs(const String& savedInputsName) { addParameter("-e" + savedInputsName);}
-    void setProfile(const String& profileName) { addParameter("-e" + profileName);}
-    void addInput(const String& inputName, const String& inputValue) { addParameter("-i" + inputName + ":" + inputValue);}
-    void addOutputFilter(const String& filterName, const String& filterPath, const String& variableName) { addParameter("-o" + filterName + ":" + filterPath + ":" + variableName);}
-    void setSettingsFileToWrite(const String& filePath) { addParameter("-w" + filePath);}
-    void setSettingsFileToRead(const String& filePath) { addParameter("-r" + filePath);}
-    unsigned int setGatewayAddress(const String& addr) { addParameter("-s" + addr);}
-        
-
-};
-
-#else //ARDUINO_AVR_YUN
 
 ///////////////////////////////////////////////////////
 //  BEGIN ARDUINO NON-YUN SUPPORT
 ///////////////////////////////////////////////////////
 
-#include <Stream.h>
-#include <Client.h>
-#include <IPAddress.h>
+#include "Arduino.h"
+#include "utility/MQTTClient.h"
+#include "utility/ArduinoTimer.h"
+#include "utility/TembooTags.h"
+
+#include "utility/TembooMQTTIPStack.h"
 #include "utility/ChoreoInputSet.h"
 #include "utility/ChoreoOutputSet.h"
 #include "utility/ChoreoPreset.h"
 
+#define IS_EMPTY(s) (NULL == s || '\0' == *s)
+
 #define TEMBOO_ERROR_OK                   (0)
+#define TEMBOO_ERROR_FAILURE              (1)
 #define TEMBOO_ERROR_ACCOUNT_MISSING      (201)
 #define TEMBOO_ERROR_CHOREO_MISSING       (203)
 #define TEMBOO_ERROR_APPKEY_NAME_MISSING  (205)
 #define TEMBOO_ERROR_APPKEY_MISSING       (207)
 #define TEMBOO_ERROR_HTTP_ERROR           (223)
-#define TEMBOO_ERROR_STREAM_TIMEOUT       (225)
-#define TEMBOO_CHOREO_DEFAULT_TIMEOUT_SECS     (901) //15 minutes and 1 second
+#define TEMBOO_ERROR_TIMEOUT              (225)
+#define TEMBOO_ERROR_MEMORY               (900)
+#define TEMBOO_ERROR_TCPIP_CONNECT_FAIL   (901)
+#define TEMBOO_ERROR_MQTT_CONNECT_FAIL    (902)
+#define TEMBOO_ERROR_MQTT_SUBSCRIBE_FAIL  (903)
+#define TEMBOO_ERROR_MQTT_DISCONNECT      (904)
+#define TEMBOO_ERROR_DEVICE_ID_MISSING    (905)
+/*
+ * The data from the MQTT is too large to fit in the buffer.
+ * The MQTT read buffer read as much as it could and discarded
+ * the rest of the packet data. Increase MAX_MESSAGE_SIZE
+ * to read more data in MQTT's readbuf
+ */
+#define TEMBOO_ERROR_MQTT_BUFFER_OVERFLOW (906)
+/*
+ * There was more data to be returned in the packet data than could
+ * fit in the return buffer. Incease MAX_RESPONSE_SIZE to read more
+ * of the packet response
+ */
+#define TEMBOO_ERROR_MQTT_DATA_TRUNCATED  (907)
+#define TEMBOO_ERROR_NO_RESPONSE          (0xFFFF)
 
-class TembooChoreo : public Stream {
+
+
+static const int MAX_MESSAGE_SIZE = 512;
+static const int MAX_RESPONSE_SIZE = 100;
+static const int MAX_HANDLERS = 4;
+static const int YIELD_TIME_MILLIS = 200;
+
+typedef MQTT::Client<TembooMQTTIPStack, ArduinoTimer, MAX_MESSAGE_SIZE, MAX_HANDLERS> BaseClient;
+
+class TembooMQTTClient : public BaseClient {
+    public:  
+        TembooMQTTClient(TembooMQTTIPStack& ipStack, unsigned int commandTimeoutMs = 30000 );
+        virtual ~TembooMQTTClient();
+
+        using BaseClient::connect;
+        int connect(const char* hostname, int port=1883);
+
+        using BaseClient::isConnected;
+        bool isConnected();
+
+        int sendChoreoRequest(const char* request, size_t len);
+        int setDeviceId(char* id);
+        int setDeviceIdFromMac(byte (&mac)[6]);
+
+    protected:
+        TembooMQTTIPStack& m_ipStack;
+        char* m_deviceId;
+        char* m_requestTopic;
+        char* m_ackTopic;
+        char* m_responseTopic;
+        char* m_dataTopic;
+
+        char* strCatNew_P(const char*, const char*);
+        void makeTopics();
+};
+
+class TembooMQTTSession;
+
+class TembooMQTTChoreo : public Stream {
     public:
         
         // Constructor.
-        // client - an instance of an Arduino Client, usually an EthernetClient
-        //          or a WiFiClient.  Used to communicate with Temboo.
-        TembooChoreo(Client& client);
+        // client - an instance of a TembooMQTTClient.  
+        //          Used to communicate with a Temboo Gateway.
+        TembooMQTTChoreo(TembooMQTTClient& client);
+        ~TembooMQTTChoreo();
 
         // Does nothing. Just for source compatibility with Yun code.
         void begin() {}; 
-        
+
         // Sets the account name to use when communicating with Temboo.
         // (required)
         void setAccountName(const String& accountName);
@@ -104,6 +140,7 @@ class TembooChoreo : public Stream {
         // (required)
         void setChoreo(const String& choreoPath);
         void setChoreo(const char* choreoPath);
+
         
         // sets the name of the saved inputs to use when executing the choreo
         // (optional)
@@ -133,19 +170,16 @@ class TembooChoreo : public Stream {
         void addOutputFilter(const String& filterName, const char* filterPath, const String& variableName);
         void addOutputFilter(const char* filterName, const String& filterPath, const String& variableName);
         void addOutputFilter(const String& filterName, const String& filterPath, const String& variableName);
-       
+   
         // run the choreo using the current input info
-        int run();
-        // run the choreo with a user specified timeout
         int run(uint16_t timeoutSecs);
-    
-        // run the choreo on the Temboo server at the given IP address and port
-        int run(IPAddress addr, uint16_t port);
-        int run(IPAddress addr, uint16_t port, uint16_t timeoutSecs);
 
-        void close();
+        char* getResponseData() {return m_respData;}
+        char* getHTTPResponseCode() {return m_httpCodeStr;}
+
 
         // Stream interface - see the Arduino library documentation.
+        void close() {};
         int available();
         int read();
         int peek();
@@ -156,22 +190,49 @@ class TembooChoreo : public Stream {
 
 
     protected:
+        TembooMQTTClient& m_client;
+        const char* m_accountName;
+        const char* m_appKeyName;
+        const char* m_appKeyValue;
+        const char* m_path;
+
         ChoreoInputSet m_inputs;
         ChoreoOutputSet m_outputs;
         ChoreoPreset m_preset;
 
-        const char* m_accountName;
-        const char* m_appKeyValue;
-        const char* m_appKeyName;
-        const char* m_path;
-        Client& m_client;
-        char m_httpCodeStr[6];
+        char m_httpCodeStr[4];
+        volatile bool m_haveHttpCode;
+
+        uint16_t m_ackCode;
+        volatile bool m_haveAckCode;
+
+        char m_respData[MAX_RESPONSE_SIZE+1];
+        volatile bool m_haveData;
+
+        uint16_t m_requestId;
+        static uint16_t s_nextRequestId;
+    
+        volatile uint16_t m_packetStatus;
+        
+        // variables for the stream interface
+        size_t m_availableChars;
         const char* m_nextChar;
-        enum State {START, HTTP_CODE_TAG, HTTP_CODE_VALUE, END};
+        enum State {START, HTTP_CODE_PRE, HTTP_CODE_VALUE, HTTP_CODE_SUF, RESP_DATA, END};
         State m_nextState;
 
+    protected:
+        uint16_t getRequestId() {return m_requestId;}
+        void setAckCode(uint16_t ackCode);
+        void setHTTPResponseCode(char* respCode);
+        void setResponseData(char* data, size_t len);
+
+        int waitForResponse(volatile bool& var, TembooMQTTSession& session, ArduinoTimer& timer);
+        
+        friend void handleDataMessage(MQTT::MessageData& md);
+        friend void handleResponseMessage(MQTT::MessageData& md);
+        friend void handleAckMessage(MQTT::MessageData& md);
+        
 };
 
-#endif //ARDUINO_AVR_YUN
 
 #endif //TEMBOO_H_
