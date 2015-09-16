@@ -18,12 +18,15 @@ software distributed under the License is distributed on an
 either express or implied. See the License for the specific
 language governing permissions and limitations under the License.
 
---------------------------------------------------------------
-
 This library includes elements of the Paho MQTT client, used 
-with permission under the Eclipse Public License - v1.0 
-(http://www.eclipse.org/legal/epl-v10.html) and the Eclipse Distribution
-License v1.0 (http://www.eclipse.org/org/documents/edl-v10.php). 
+with permission under the Eclipse Public License - v1.0:
+
+http://www.eclipse.org/legal/epl-v10.html 
+
+and the Eclipse Distribution License v1.0:
+
+http://www.eclipse.org/org/documents/edl-v10.php
 
 The Eclipse MQTT Paho client source is available here:
+
 http://www.eclipse.org/paho/
