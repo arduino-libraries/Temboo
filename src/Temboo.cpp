@@ -24,59 +24,8 @@
 #if defined (ARDUINO_AVR_YUN) || defined (ARDUINO_AVR_TRE)
 
 ///////////////////////////////////////////////////////
-//  BEGIN ARDUINO YUN AND TRE SUPPORT
+//  ARDUINO YUN AND TRE SUPPORT IN HEADER FILE
 ///////////////////////////////////////////////////////
-
-#include <Temboo.h>
-
-void TembooChoreo::begin() {
-    Process::begin("temboo");
-}
-
-void TembooChoreo::setAccountName(const String& accountName) {
-    addParameter("-a" + accountName);
-}
-
-void TembooChoreo::setAppKeyName(const String& appKeyName) {
-    addParameter("-u" + appKeyName);
-}
-
-void TembooChoreo::setAppKey(const String& appKey) {
-    addParameter("-p" + appKey);
-}
-
-void TembooChoreo::setChoreo(const String& choreo) {
-    addParameter("-c" + choreo);
-}
-
-void TembooChoreo::setCredential(const String& credentialName) {
-    addParameter("-e" + credentialName);
-}
-
-void TembooChoreo::setSavedInputs(const String& savedInputsName) {
-    addParameter("-e" + savedInputsName);
-}
-
-void TembooChoreo::setProfile(const String& profileName) {
-    addParameter("-e" + profileName);
-}
-
-void TembooChoreo::addInput(const String& inputName, const String& inputValue) {
-    addParameter("-i" + inputName + ":" + inputValue);
-}
-
-void TembooChoreo::addOutputFilter(const String& outputName, const String& filterPath, const String& variableName) {
-    addParameter("-o" + outputName + ":" + filterPath + ":" + variableName);
-}
-
-void TembooChoreo::setSettingsFileToWrite(const String& filePath) {
-    addParameter("-w" + filePath);
-}
-
-void TembooChoreo::setSettingsFileToRead(const String& filePath) {
-    addParameter("-r" + filePath);
-}
-
 
 #else //ARDUINO_AVR_YUN
 
@@ -241,6 +190,10 @@ int TembooChoreo::run(uint16_t timeoutSecs) {
     return run(INADDR_NONE, 80, timeoutSecs);
 }
 
+int TembooChoreo::run(IPAddress addr, uint16_t port) {
+    return run(addr, port, TEMBOO_CHOREO_DEFAULT_TIMEOUT_SECS);
+}
+
 int TembooChoreo::run(IPAddress addr, uint16_t port, uint16_t timeoutSecs) {
     
     m_nextChar = NULL;
@@ -351,7 +304,11 @@ int TembooChoreo::peek() {
     // If we're still sending the HTTP response code,
     // return the next character in that sequence.
     if (m_nextChar != NULL) {
-        return (int)*m_nextChar;
+        if(m_nextState != HTTP_CODE_VALUE) {
+            return (int)pgm_read_byte(m_nextChar);
+        } else {
+            return (int)*m_nextChar;
+        }
     }
 
     // Otherwise, return whatever is in the client buffer.
