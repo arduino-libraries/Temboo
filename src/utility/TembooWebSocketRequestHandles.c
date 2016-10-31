@@ -197,6 +197,9 @@ char* getErrorMessage(char** saveptr) {
                     (*saveptr)++;
                     break;
                 default:
+                    // increment pointer and decrement str length
+                    (*saveptr)++;
+                    len--;
                     break;
             }
         } else if (**saveptr == '|') {
