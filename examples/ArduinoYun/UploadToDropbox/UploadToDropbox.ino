@@ -53,7 +53,7 @@ const String DROPBOX_ACCESS_TOKEN = "xxxxxxxxxx";
 const String DROPBOX_ACCESS_TOKEN_SECRET = "xxxxxxxxxx";
 
 
-boolean success = false; // a flag to indicate whether we've uploaded the file yet
+bool success = false; // a flag to indicate whether we've uploaded the file yet
 
 void setup() {
   Serial.begin(9600);
