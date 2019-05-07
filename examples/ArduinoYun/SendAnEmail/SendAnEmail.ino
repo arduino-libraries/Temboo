@@ -70,7 +70,7 @@ const String GMAIL_APP_PASSWORD = "xxxxxxxxxx";
 const String TO_EMAIL_ADDRESS = "xxxxxxxxxx";
 
 // a flag to indicate whether we've tried to send the email yet or not
-boolean attempted = false; 
+bool attempted = false; 
 
 void setup() {
   Serial.begin(9600);

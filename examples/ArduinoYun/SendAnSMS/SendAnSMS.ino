@@ -55,7 +55,7 @@ const String TWILIO_NUMBER = "xxxxxxxxxx";
 const String RECIPIENT_NUMBER = "xxxxxxxxxx";
 
 // a flag to indicate whether we've attempted to send the SMS yet or not
-boolean attempted = false; 
+bool attempted = false; 
 
 void setup() {
   Serial.begin(9600);
