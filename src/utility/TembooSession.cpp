@@ -154,7 +154,7 @@ int TembooSession::executeChoreo(
         // send the standard accept header
         qsendlnProgmem(HEADER_ACCEPT);
         
-        // send our custom account name neader
+        // send our custom account name header
         qsendProgmem(HEADER_ORG);
         qsend(accountName);
         qsendlnProgmem(HEADER_DOM);

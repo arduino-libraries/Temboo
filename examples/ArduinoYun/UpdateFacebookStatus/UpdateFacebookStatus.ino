@@ -18,7 +18,7 @@
   This example assumes basic familiarity with Arduino sketches, and that your Yún
   is connected to the Internet.
   
-  Want to use another social API with your Arduino Yún? We've got Twitter, Google+,
+  Want to use another social API with your Arduino Yún? We've got Twitter,
   Instagram, Tumblr and more in our Library!
 
   This example code is in the public domain. 
@@ -77,7 +77,7 @@ void loop() {
     // tell the Temboo client which Choreo to run (Facebook > Publishing > SetStatus)
     SetStatusChoreo.setChoreo("/Library/Facebook/Publishing/SetStatus");
 
-    // set the required choreo inputs
+    // set the required Choreo inputs
     // see  https://www.temboo.com/library/Library/Facebook/Publishing/SetStatus/
     // for complete details about the inputs for this Choreo
     

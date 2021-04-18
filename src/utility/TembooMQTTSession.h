@@ -44,20 +44,20 @@ class TembooMQTTSession {
         //client: REQUIRED TembooMQTTClient client object.
         TembooMQTTSession(TembooMQTTClient& client);
 
-        //executeChoreo sends a choreo execution request to the Temboo system.
+        //executeChoreo sends a Choreo execution request to the Temboo system.
         //              Does not wait for a response (that's a job for whoever owns the Client.)
         //accountName: the name of the user's account at Temboo.
         //appKeyName: the name of an application key in the user's account to use 
         //            for this execution (analogous to a user name).
         //appKeyValue: the value of the application key named in appKeyName.
         //             Used to authenticate the user (analogous to a password)
-        //path: The full path to the choreo to be executed (relative to the root of the 
+        //path: The full path to the Choreo to be executed (relative to the root of the 
         //      user's account.)
-        //inputSet: the set of inputs needed by the choreo.
+        //inputSet: the set of inputs needed by the Choreo.
         //          May be an empty ChoreoInputSet.
-        //outputSet: the set of output filters to be applied to the choreo results.
+        //outputSet: the set of output filters to be applied to the Choreo results.
         //           May be an empty ChoreoOutputSet
-        //preset: the ChoreoPreset to be used with the choreo execution. 
+        //preset: the ChoreoPreset to be used with the Choreo execution. 
         //        May be an empty ChoreoPreset.
         int executeChoreo(
                 uint16_t requestId,

@@ -16,7 +16,7 @@ Temboo Version:
   Class renamed to resolve a distribution issue.
 
 Version 2.3:
-  Unknonw chip fallback mode, Roger Clark
+  Unknown chip fallback mode, Roger Clark
   Teensy-LC compatibility, Paul Stoffregen
   Search bug fix, Love Nystrom
 

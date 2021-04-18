@@ -107,22 +107,22 @@ class TembooChoreo : public Stream {
         void setAccountName(const String& accountName);
         void setAccountName(const char* accountName);
 
-        // Sets the application key name to use with choreo execution requests.
+        // Sets the application key name to use with Choreo execution requests.
         // (required)
         void setAppKeyName(const String& appKeyName);
         void setAppKeyName(const char* appKeyName);
         
-        // Sets the application key value to use with choreo execution requests
+        // Sets the application key value to use with Choreo execution requests
         // (required)
         void setAppKey(const String& appKey);
         void setAppKey(const char* appKey);
         
-        // Sets the name of the choreo to be executed.
+        // Sets the name of the Choreo to be executed.
         // (required)
         void setChoreo(const String& choreoPath);
         void setChoreo(const char* choreoPath);
         
-        // Sets the name of the saved inputs to use when executing the choreo
+        // Sets the name of the saved inputs to use when executing the Choreo
         // (optional)
         void setSavedInputs(const String& savedInputsName);
         void setSavedInputs(const char* savedInputsName);
@@ -139,8 +139,8 @@ class TembooChoreo : public Stream {
         void setDeviceName(const String& deviceName);
         void setDeviceName(const char* deviceName);
 
-        // Sets an input to be used when executing a choreo.
-        // (optional or required, depending on the choreo being executed.)
+        // Sets an input to be used when executing a Choreo.
+        // (optional or required, depending on the Choreo being executed.)
         void addInput(const String& inputName, const String& inputValue);
         void addInput(const char* inputName, const char* inputValue);
         void addInput(const char* inputName, const String& inputValue);
@@ -167,7 +167,7 @@ class TembooChoreo : public Stream {
         void addSensorInput(const char* sensorName, int sensorValue, const char* conversion, const char* calibrationValue);
         void addSensorInput(const char* sensorName, int sensorValue, const char* rawLow, const char* rawHigh, const char* scaleLow, const char* scaleHigh);
 
-        // Sets an output filter to be used to process the choreo output
+        // Sets an output filter to be used to process the Choreo output
         // (optional)
         void addOutputFilter(const char* filterName, const char* filterPath, const char* variableName);
         void addOutputFilter(const String& filterName, const char* filterPath, const char* variableName);
@@ -178,12 +178,12 @@ class TembooChoreo : public Stream {
         void addOutputFilter(const char* filterName, const String& filterPath, const String& variableName);
         void addOutputFilter(const String& filterName, const String& filterPath, const String& variableName);
        
-        // Run the choreo using the current input info
+        // Run the Choreo using the current input info
         int run();
-        // Run the choreo with a user specified timeout
+        // Run the Choreo with a user specified timeout
         int run(uint16_t timeoutSecs);
     
-        // Run the choreo on the Temboo server at the given IP address and port
+        // Run the Choreo on the Temboo server at the given IP address and port
         int run(IPAddress addr, uint16_t port);
         int run(IPAddress addr, uint16_t port, uint16_t timeoutSecs);
 

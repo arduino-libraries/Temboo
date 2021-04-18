@@ -804,7 +804,7 @@ int TembooCoAPChoreo::run(uint16_t timeoutSecs) {
             }
         }
         
-        // choreo request complete, wait for CON from gateway
+        // Choreo request complete, wait for CON from gateway
         // and then request the rest of the response
         
         rc = waitForResponse(timer);
@@ -826,7 +826,7 @@ int TembooCoAPChoreo::run(uint16_t timeoutSecs) {
             
             m_nextChar = HTTP_CODE_PREFIX;
             
-            //Unauthroized, need to update the time
+            //Unauthorized, need to update the time
             if (httpCode == 401 && i == 0) {
                 find(HEADER_TIME);
                 TembooCoAPSession::setTime((unsigned long)this->parseInt());

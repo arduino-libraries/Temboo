@@ -54,15 +54,15 @@ void loop()
     // invoke the Temboo client
     GetWeatherByAddressChoreo.begin();
 
-    // add your temboo account info
+    // add your Temboo account info
     GetWeatherByAddressChoreo.setAccountName(TEMBOO_ACCOUNT);
     GetWeatherByAddressChoreo.setAppKeyName(TEMBOO_APP_KEY_NAME);
     GetWeatherByAddressChoreo.setAppKey(TEMBOO_APP_KEY);
     
-    // set the name of the choreo we want to run
+    // set the name of the Choreo we want to run
     GetWeatherByAddressChoreo.setChoreo("/Library/Yahoo/Weather/GetWeatherByAddress");
     
-    // set choreo inputs; in this case, the address for which to retrieve weather data
+    // set Choreo inputs; in this case, the address for which to retrieve weather data
     // the Temboo client provides standardized calls to 100+ cloud APIs
     GetWeatherByAddressChoreo.addInput("Address", ADDRESS_FOR_FORECAST);
 
@@ -75,10 +75,10 @@ void loop()
     // add an output filter to extract the date and time of the last report.
     GetWeatherByAddressChoreo.addOutputFilter("date", "/rss/channel/item/yweather:condition/@date", "Response");
 
-    // run the choreo 
+    // run the Choreo 
     GetWeatherByAddressChoreo.run();
         
-    // when the choreo results are available, print them to the serial monitor
+    // when the Choreo results are available, print them to the Serial Monitor
     while(GetWeatherByAddressChoreo.available()) {
           
       char c = GetWeatherByAddressChoreo.read();    

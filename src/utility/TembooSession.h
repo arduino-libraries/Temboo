@@ -31,7 +31,7 @@
 
 #ifndef TEMBOO_SEND_QUEUE_SIZE
 
-// Some network interfaces (i.e. ethernet or WiFi shields) can only accept
+// Some network interfaces (i.e. Ethernet or WiFi shields) can only accept
 // a limited amount of data.  If you try to send more than the limit, the excess
 // is just lost.  However, sending one character at a time is very inefficient.
 // To deal with this situation, we queue up TEMBOO_SEND_QUEUE_SIZE bytes to send
@@ -57,20 +57,20 @@ class TembooSession {
         //port: OPTIONAL port number to use with the IPAddress. Usually only used for testing.
         TembooSession(Client& client, IPAddress serverAddr=INADDR_NONE, uint16_t port=80);
 
-        //executeChoreo sends a choreo execution request to the Temboo system.
+        //executeChoreo sends a Choreo execution request to the Temboo system.
         //              Does not wait for a response (that's a job for whoever owns the Client.)
         //accountName: the name of the user's account at Temboo.
         //appKeyName: the name of an application key in the user's account to use 
         //            for this execution (analogous to a user name).
         //appKeyValue: the value of the application key named in appKeyName.
         //             Used to authenticate the user (analogous to a password)
-        //path: The full path to the choreo to be executed (relative to the root of the 
+        //path: The full path to the Choreo to be executed (relative to the root of the 
         //      user's account.)
-        //inputSet: the set of inputs needed by the choreo.
+        //inputSet: the set of inputs needed by the Choreo.
         //          May be an empty ChoreoInputSet.
-        //outputSet: the set of output filters to be applied to the choreo results.
+        //outputSet: the set of output filters to be applied to the Choreo results.
         //           May be an empty ChoreoOutputSet
-        //preset: the ChoreoPreset to be used with the choreo execution. 
+        //preset: the ChoreoPreset to be used with the Choreo execution. 
         //        May be an empty ChoreoPreset.
         int executeChoreo(const char* accountName, 
                 const char* appKeyName, 

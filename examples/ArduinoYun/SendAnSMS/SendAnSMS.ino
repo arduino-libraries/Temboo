@@ -87,10 +87,10 @@ void loop()
     SendSMSChoreo.setAppKeyName(TEMBOO_APP_KEY_NAME);
     SendSMSChoreo.setAppKey(TEMBOO_APP_KEY);
 
-    // identify the Temboo Library choreo to run (Twilio > SMSMessages > SendSMS)
+    // identify the Temboo Library Choreo to run (Twilio > SMSMessages > SendSMS)
     SendSMSChoreo.setChoreo("/Library/Twilio/SMSMessages/SendSMS");
 
-    // set the required choreo inputs
+    // set the required Choreo inputs
     // see https://www.temboo.com/library/Library/Twilio/SMSMessages/SendSMS/ 
     // for complete details about the inputs for this Choreo
 
@@ -127,7 +127,7 @@ void loop()
     } 
     SendSMSChoreo.close();
     
-    // set the flag indicatine we've tried once.
+    // set the flag indicating we've tried once.
     attempted=true;
   }
 }

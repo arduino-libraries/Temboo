@@ -246,7 +246,7 @@ void directWriteHigh(volatile IO_REG_TYPE *base, IO_REG_TYPE pin)
 #define DIRECT_WRITE_HIGH(base, pin)    digitalWrite(pin, HIGH)
 #define DIRECT_MODE_INPUT(base, pin)    pinMode(pin,INPUT)
 #define DIRECT_MODE_OUTPUT(base, pin)   pinMode(pin,OUTPUT)
-#warning "OneWire. Fallback mode. Using API calls for pinMode,digitalRead and digitalWrite. Operation of this library is not guaranteed on this architecture."
+#warning "OneWire. Fallback mode. Using API calls for pinMode, digitalRead and digitalWrite. Operation of this library is not guaranteed on this architecture."
 
 #endif
 
@@ -270,7 +270,7 @@ class TembooOneWire
 
     // Perform a 1-Wire reset cycle. Returns 1 if a device responds
     // with a presence pulse.  Returns 0 if there is no device or the
-    // bus is shorted or otherwise held low for more than 250uS
+    // bus is shorted or otherwise held low for more than 250 us
     uint8_t reset(void);
 
     // Issue a 1-Wire rom select command, you do the reset first.
@@ -347,7 +347,7 @@ class TembooOneWire
     // @param inverted_crc - The two CRC16 bytes in the received data.
     //                       This should just point into the received data,
     //                       *not* at a 16-bit integer.
-    // @param crc - The crc starting value (optional)
+    // @param crc - The CRC starting value (optional)
     // @return True, iff the CRC matches.
     static bool check_crc16(const uint8_t* input, uint16_t len, const uint8_t* inverted_crc, uint16_t crc = 0);
 
@@ -361,7 +361,7 @@ class TembooOneWire
     //      byte order than the two bytes you get from 1-Wire.
     // @param input - Array of bytes to checksum.
     // @param len - How many bytes to use.
-    // @param crc - The crc starting value (optional)
+    // @param crc - The CRC starting value (optional)
     // @return The CRC16, as defined by Dallas Semiconductor.
     static uint16_t crc16(const uint8_t* input, uint16_t len, uint16_t crc = 0);
 #endif
