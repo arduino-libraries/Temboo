@@ -60,10 +60,10 @@ void loop()
     FacilitiesSearchByZipChoreo.setAppKeyName(TEMBOO_APP_KEY_NAME);
     FacilitiesSearchByZipChoreo.setAppKey(TEMBOO_APP_KEY);
   
-    // identify the Temboo Library choreo to run (EnviroFacts > Toxins > FacilitiesSearchByZip)
+    // identify the Temboo Library Choreo to run (EnviroFacts > Toxins > FacilitiesSearchByZip)
     FacilitiesSearchByZipChoreo.setChoreo("/Library/EnviroFacts/Toxins/FacilitiesSearchByZip");
         
-    // set choreo inputs; in this case, the US zip code for which to retrieve toxin release data
+    // set Choreo inputs; in this case, the US zip code for which to retrieve toxin release data
     // the Temboo client provides standardized calls to 100+ cloud APIs
     FacilitiesSearchByZipChoreo.addInput("Zip", US_ZIP_CODE);
     
@@ -73,13 +73,13 @@ void loop()
 
     FacilitiesSearchByZipChoreo.addOutputFilter("addr", "STREET_ADDRESS", "Response");
 
-    // run the choreo 
+    // run the Choreo 
     unsigned int returnCode = FacilitiesSearchByZipChoreo.run();
     if (returnCode == 0) {
       String facilities;
       String addresses;
 
-      // when the choreo results are available, process them.
+      // when the Choreo results are available, process them.
       // the output filters we specified will return comma delimited
       // lists containing the name and street address of the facilities
       // located in the specified zip code.
@@ -99,7 +99,7 @@ void loop()
       FacilitiesSearchByZipChoreo.close();
       
       // parse the comma delimited lists of facilities to join the 
-      // name with the address and print it to the serial monitor
+      // name with the address and print it to the Serial Monitor
       if (facilities.length() > 0) {
         int i = -1;
         int facilityStart = 0;
@@ -142,7 +142,7 @@ void loop()
   delay(30000); // wait 30 seconds between calls
 }
 
-// a simple utility function, to output the facility name and address in the serial monitor.
+// a simple utility function, to output the facility name and address in the Serial Monitor.
 void printResult(String facility, String address) {
   Serial.print(facility);
   Serial.print(" - ");

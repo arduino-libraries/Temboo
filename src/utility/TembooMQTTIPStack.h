@@ -52,7 +52,7 @@ public:
         size_t count = m_client.readBytes((char*)buffer, len);
         
         // Not sure this is a totally good idea.
-        // (Stream defaults to 1000 mS timeouts.)
+        // (Stream defaults to 1000 ms timeouts.)
         m_client.setTimeout(1000);
         return count;
     }
@@ -82,7 +82,7 @@ public:
         size_t count = m_client.write(buffer, min(len, WRITE_CHUNK_SIZE));
         
         // Not sure this is a totally good idea.
-        // (Stream defaults to 1000 mS timeouts.)
+        // (Stream defaults to 1000 ms timeouts.)
         m_client.setTimeout(1000);
         return count;
     }

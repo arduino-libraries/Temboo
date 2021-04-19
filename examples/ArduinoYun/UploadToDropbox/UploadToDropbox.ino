@@ -90,10 +90,10 @@ void loop()
     UploadFileChoreo.setAppKeyName(TEMBOO_APP_KEY_NAME);
     UploadFileChoreo.setAppKey(TEMBOO_APP_KEY);
 
-    // identify the Temboo Library choreo to run (Dropbox > FilesAndMetadata > UploadFile)
+    // identify the Temboo Library Choreo to run (Dropbox > FilesAndMetadata > UploadFile)
     UploadFileChoreo.setChoreo("/Library/Dropbox/FilesAndMetadata/UploadFile");
     
-    // set the required choreo inputs
+    // set the required Choreo inputs
     // see https://www.temboo.com/library/Library/Dropbox/FilesAndMetadata/UploadFile/
     // for complete details about the inputs for this Choreo
 
@@ -128,7 +128,7 @@ void loop()
       Serial.println("Uh-oh! Something went wrong!");
     }
     
-    // print out the full response to the serial monitor in all
+    // print out the full response to the Serial Monitor in all
     // cases, just for debugging
     while (UploadFileChoreo.available()) {
       char c = UploadFileChoreo.read();
@@ -160,17 +160,17 @@ String base64Encode(String toEncode) {
     Base64EncodeChoreo.setAppKeyName(TEMBOO_APP_KEY_NAME);
     Base64EncodeChoreo.setAppKey(TEMBOO_APP_KEY);
 
-    // identify the Temboo Library choreo to run (Utilities > Encoding > Base64Encode)
+    // identify the Temboo Library Choreo to run (Utilities > Encoding > Base64Encode)
     Base64EncodeChoreo.setChoreo("/Library/Utilities/Encoding/Base64Encode");
  
-     // set choreo inputs
+     // set Choreo inputs
     Base64EncodeChoreo.addInput("Text", toEncode);
     
-    // run the choreo
+    // run the Choreo
     Base64EncodeChoreo.run();
     
-    // read in the choreo results, and return the "Base64EncodedText" output value.
-    // see http://www.temboo.com/arduino for more details on using choreo outputs.
+    // read in the Choreo results, and return the "Base64EncodedText" output value.
+    // see http://www.temboo.com/arduino for more details on using Choreo outputs.
     while(Base64EncodeChoreo.available()) {
       // read the name of the output item
       String name = Base64EncodeChoreo.readStringUntil('\x1F');

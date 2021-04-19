@@ -189,7 +189,7 @@ void handleResponseMessage(MQTT::MessageData& md) {
     }
 
     // FINALLY, everything's OK. 
-    // pass the value to the waiting choreo.
+    // pass the value to the waiting Choreo.
     g_currentChoreo->setHTTPResponseCode(next);
     TEMBOO_TRACELN(" ok");
 
@@ -294,7 +294,7 @@ void handleAckMessage(MQTT::MessageData& md) {
     }
 
     // FINALLY, everything's OK. 
-    // pass the value to the waiting choreo.
+    // pass the value to the waiting Choreo.
     g_currentChoreo->setAckCode(ackCode);
     TEMBOO_TRACELN(" ok");
 

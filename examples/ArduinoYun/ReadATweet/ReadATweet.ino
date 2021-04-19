@@ -19,7 +19,7 @@
   is connected to the Internet.
 
   Want to use another social API with your Arduino Yún? We've got Facebook,
-  Google+, Instagram, Tumblr and more in our Library!
+  Instagram, Tumblr and more in our Library!
   
   This example code is in the public domain.
 */
@@ -71,7 +71,7 @@ void loop()
     HomeTimelineChoreo.setChoreo("/Library/Twitter/Timelines/HomeTimeline");
     
     
-    // set the required choreo inputs
+    // set the required Choreo inputs
     // see https://www.temboo.com/library/Library/Twitter/Timelines/HomeTimeline/
     // for complete details about the inputs for this Choreo
 
@@ -105,7 +105,7 @@ void loop()
       String tweet; // a String to hold the text of the tweet
 
 
-      // choreo outputs are returned as key/value pairs, delimited with 
+      // Choreo outputs are returned as key/value pairs, delimited with 
       // newlines and record/field terminator characters, for example:
       // Name1\n\x1F
       // Value1\n\x1E
@@ -136,7 +136,7 @@ void loop()
     
     } else {
       // there was an error
-      // print the raw output from the choreo
+      // print the raw output from the Choreo
       while(HomeTimelineChoreo.available()) {
         char c = HomeTimelineChoreo.read();
         Serial.print(c);

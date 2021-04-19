@@ -34,7 +34,7 @@
  
   9. Copy and paste this password into the code below, updating the GMAIL_APP_PASSWORD variable
  
-  10. Upload the sketch to your Arduino Yún and open the serial monitor
+  10. Upload the sketch to your Arduino Yún and open the Serial Monitor
   
   NOTE: You can test this Choreo and find the latest instructions on our website: 
   https://temboo.com/library/Library/Google/Gmail/SendEmail
@@ -101,11 +101,11 @@ void loop()
     SendEmailChoreo.setAppKeyName(TEMBOO_APP_KEY_NAME);
     SendEmailChoreo.setAppKey(TEMBOO_APP_KEY);
 
-    // identify the Temboo Library choreo to run (Google > Gmail > SendEmail)
+    // identify the Temboo Library Choreo to run (Google > Gmail > SendEmail)
     SendEmailChoreo.setChoreo("/Library/Google/Gmail/SendEmail");
  
 
-    // set the required choreo inputs
+    // set the required Choreo inputs
     // see https://www.temboo.com/library/Library/Google/Gmail/SendEmail/ 
     // for complete details about the inputs for this Choreo
 

@@ -20,7 +20,7 @@
   to the Internet.
 
   Want to use another social API with your Arduino Yún? We've got Facebook,
-  Google+, Instagram, Tumblr and more in our Library!
+  Instagram, Tumblr and more in our Library!
   
   This example code is in the public domain.
 */
@@ -76,10 +76,10 @@ void loop()
     StatusesUpdateChoreo.setAppKeyName(TEMBOO_APP_KEY_NAME);
     StatusesUpdateChoreo.setAppKey(TEMBOO_APP_KEY);
 
-    // identify the Temboo Library choreo to run (Twitter > Tweets > StatusesUpdate)
+    // identify the Temboo Library Choreo to run (Twitter > Tweets > StatusesUpdate)
     StatusesUpdateChoreo.setChoreo("/Library/Twitter/Tweets/StatusesUpdate");
 
-    // set the required choreo inputs
+    // set the required Choreo inputs
     // see https://www.temboo.com/library/Library/Twitter/Tweets/StatusesUpdate/ 
     // for complete details about the inputs for this Choreo
  

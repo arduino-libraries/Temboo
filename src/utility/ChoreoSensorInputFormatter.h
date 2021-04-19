@@ -41,7 +41,7 @@ class ChoreoSensorInputFormatter : public BaseFormatter {
         
         
         enum State {
-            // This is added to fix a compilation bug for the mkr1000
+            // This is added to fix a compilation bug for the MKR1000
             START = 256,
             SENSOR_INPUT_TAG,
             SENSOR_NAME_START,

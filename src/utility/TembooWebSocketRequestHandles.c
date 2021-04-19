@@ -172,8 +172,8 @@ WSMessageRequest handleSetRequest(char** saveptr, TembooSensor** sensorTable, in
 
 // Parse out the error message while ignoring escaped characters.
 // This functions acts like strstr where it will move saveptr
-// to the index past the delimeter ('|' in this case), add '\0'
-// where the delimeter is, and return the pointer of the error message
+// to the index past the delimiter ('|' in this case), add '\0'
+// where the delimiter is, and return the pointer of the error message
 char* getErrorMessage(char** saveptr) {
     if (saveptr == NULL || *saveptr == NULL) {
         return NULL;

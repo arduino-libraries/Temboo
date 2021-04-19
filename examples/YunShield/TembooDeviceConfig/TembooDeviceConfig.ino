@@ -43,7 +43,7 @@ void setup() {
   }
   Serial.println();
   
-  // install python openssl to allow for for ssl connections
+  // install python openssl to allow for for SSL connections
   Serial.print("Installing python-openssl...");
   p.runShellCommand("opkg install python-openssl");
   returnCode = p.exitValue();

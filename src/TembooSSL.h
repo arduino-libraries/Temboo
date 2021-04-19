@@ -54,13 +54,13 @@ class TembooChoreoSSL : public TembooChoreo {
         
         // Constructor.
         // client - an instance of an Arduino Client that 
-        // allows HTTPS conntections, usually WiFiSSL
+        // allows HTTPS connections, usually WiFiSSL
         TembooChoreoSSL(Client& client);
 
-        // run the choreo using the current input info
+        // run the Choreo using the current input info
         // uses port 443
         int run();
-        // run the choreo with a user specified timeout
+        // run the Choreo with a user specified timeout
         // uses port 443
         int run(uint16_t timeoutSecs);
 };

@@ -42,7 +42,7 @@
      
      https://temboo.com/arduino/yun/update-google-spreadsheet
  
-  6. Next, upload the sketch to your Arduino Yún and open the serial monitor
+  6. Next, upload the sketch to your Arduino Yún and open the Serial Monitor
   
      Note: you can test this Choreo and find the latest instructions on our website:
      https://temboo.com/library/Library/Google/Sheets/AppendValues/
@@ -106,7 +106,7 @@ void loop()
   // run again if it's been 60 seconds since we last ran
   if (now - lastRun >= RUN_INTERVAL_MILLIS) {
 
-    // remember 'now' as the last time we ran the choreo
+    // remember 'now' as the last time we ran the Choreo
     lastRun = now;
     
     Serial.println("Getting sensor value...");
@@ -129,7 +129,7 @@ void loop()
     AppendValuesChoreo.setAppKeyName(TEMBOO_APP_KEY_NAME);
     AppendValuesChoreo.setAppKey(TEMBOO_APP_KEY);
     
-    // identify the Temboo Library choreo to run (Google > Sheets > AppendValues)
+    // identify the Temboo Library Choreo to run (Google > Sheets > AppendValues)
     AppendValuesChoreo.setChoreo("/Library/Google/Sheets/AppendValues");
     
     // set the required Choreo inputs

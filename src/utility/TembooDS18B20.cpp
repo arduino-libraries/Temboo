@@ -34,7 +34,7 @@ int tembooDS18B20Read(void* sensorConfig) {
 	g_wire->select(config->channel);
 	// tells device to convert temperature to scratchpad to read
 	g_wire->write(0x44, config->parasite);
-	// delay 750ms for conversion to occur, but wait for 1 second just in case
+	// delay 750 ms for conversion to occur, but wait for 1 second just in case
 	delay(config->conversionDelayMillis);
 
 	// begin reading data

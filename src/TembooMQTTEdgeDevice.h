@@ -133,23 +133,23 @@ class TembooMQTTChoreo : public Stream {
         void setAccountName(const String& accountName);
         void setAccountName(const char* accountName);
 
-        // Sets the application key name to use with choreo execution requests.
+        // Sets the application key name to use with Choreo execution requests.
         // (required)
         void setAppKeyName(const String& appKeyName);
         void setAppKeyName(const char* appKeyName);
         
-        // Sets the application key value to use with choreo execution requests
+        // Sets the application key value to use with Choreo execution requests
         // (required)
         void setAppKey(const String& appKey);
         void setAppKey(const char* appKey);
         
-        // sets the name of the choreo to be executed.
+        // sets the name of the Choreo to be executed.
         // (required)
         void setChoreo(const String& choreoPath);
         void setChoreo(const char* choreoPath);
 
         
-        // sets the name of the saved inputs to use when executing the choreo
+        // sets the name of the saved inputs to use when executing the Choreo
         // (optional)
         void setSavedInputs(const String& savedInputsName);
         void setSavedInputs(const char* savedInputsName);
@@ -160,14 +160,14 @@ class TembooMQTTChoreo : public Stream {
         void setProfile(const String& profileName);
         void setProfile(const char* profileName);
 
-        // sets an input to be used when executing a choreo.
-        // (optional or required, depending on the choreo being executed.)
+        // sets an input to be used when executing a Choreo.
+        // (optional or required, depending on the Choreo being executed.)
         void addInput(const String& inputName, const String& inputValue);
         void addInput(const char* inputName, const char* inputValue);
         void addInput(const char* inputName, const String& inputValue);
         void addInput(const String& inputName, const char* inputValue);
         
-        // sets an output filter to be used to process the choreo output
+        // sets an output filter to be used to process the Choreo output
         // (optional)
         void addOutputFilter(const char* filterName, const char* filterPath, const char* variableName);
         void addOutputFilter(const String& filterName, const char* filterPath, const char* variableName);
@@ -178,7 +178,7 @@ class TembooMQTTChoreo : public Stream {
         void addOutputFilter(const char* filterName, const String& filterPath, const String& variableName);
         void addOutputFilter(const String& filterName, const String& filterPath, const String& variableName);
    
-        // run the choreo using the current input info
+        // run the Choreo using the current input info
         int run(uint16_t timeoutSecs);
 
         char* getResponseData() {return m_respData;}

@@ -199,7 +199,7 @@ WSMessageRequest TembooMessaging::poll() {
 }
 
 void TembooMessaging::updatePinValue(int pinNum, int pinVal) {
-	// save the data to the strcuture and then send to Temboo
+	// save the data to the structure and then send to Temboo
 	int i = 0;
     for (; i < m_sensorTableDepth; i++) {
     	if (m_sensorTable[i]->getSensorPin(m_sensorTable[i]->sensorConfig) == pinNum) {
