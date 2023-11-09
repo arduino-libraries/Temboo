@@ -72,7 +72,7 @@
 #define TEMBOO_ERROR_MQTT_BUFFER_OVERFLOW (906)
 /*
  * There was more data to be returned in the packet data than could
- * fit in the return buffer. Incease MAX_RESPONSE_SIZE to read more
+ * fit in the return buffer. Increase MAX_RESPONSE_SIZE to read more
  * of the packet response
  */
 #define TEMBOO_ERROR_MQTT_DATA_TRUNCATED  (907)
