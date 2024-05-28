@@ -53,7 +53,7 @@ int tembooDS18B20Read(void* sensorConfig) {
 }
 
 void tembooDS18B20Begin(__attribute__((unused)) void* sensorConfig) {
-	// all of the initializtion is done in init
+	// all of the initialization is done in init
 	return;
 }
 

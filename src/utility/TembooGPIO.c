@@ -52,7 +52,7 @@ void tembooAnalogWrite(void* sensorConfig, int val) {
 }
 
 void tembooGPIOBegin(__attribute__((unused)) void* sensorConfig) {
-	// all of the initializtion is done in init
+	// all of the initialization is done in init
 	return;
 }
 
